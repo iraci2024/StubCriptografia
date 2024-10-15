@@ -1,0 +1,14 @@
+/home/user/StubProject/bin/Debug/net7.0/StubProject
+/home/user/StubProject/bin/Debug/net7.0/StubProject.deps.json
+/home/user/StubProject/bin/Debug/net7.0/StubProject.runtimeconfig.json
+/home/user/StubProject/bin/Debug/net7.0/StubProject.dll
+/home/user/StubProject/bin/Debug/net7.0/StubProject.pdb
+/home/user/StubProject/obj/Debug/net7.0/StubProject.GeneratedMSBuildEditorConfig.editorconfig
+/home/user/StubProject/obj/Debug/net7.0/StubProject.AssemblyInfoInputs.cache
+/home/user/StubProject/obj/Debug/net7.0/StubProject.AssemblyInfo.cs
+/home/user/StubProject/obj/Debug/net7.0/StubProject.csproj.CoreCompileInputs.cache
+/home/user/StubProject/obj/Debug/net7.0/StubProject.dll
+/home/user/StubProject/obj/Debug/net7.0/refint/StubProject.dll
+/home/user/StubProject/obj/Debug/net7.0/StubProject.pdb
+/home/user/StubProject/obj/Debug/net7.0/StubProject.genruntimeconfig.cache
+/home/user/StubProject/obj/Debug/net7.0/ref/StubProject.dll
