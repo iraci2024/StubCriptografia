@@ -4,6 +4,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO.Compression;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 class Stub
 {
