@@ -4,6 +4,9 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.IO.Compression;
+using iText.Kernel.Pdf;
+using iText.Layout;
+using iText.Layout.Element;
 
 class Stub
 {
@@ -26,6 +29,7 @@ class Stub
 
         string command = args[0];
         string filePath = args[1];
+        Console.WriteLine($"Comando: {command}, Caminho do arquivo: {filePath}");
 
         if (command == "encrypt")
         {
@@ -35,9 +39,13 @@ class Stub
         {
             DecryptFile(filePath);
         }
+        else if (command == "convert_to_pdf")
+        {
+            ConvertToPdf(filePath);
+        }
         else
         {
-            Console.WriteLine("Comando inválido. Use 'encrypt' ou 'decrypt'.");
+            Console.WriteLine("Comando inválido. Use 'encrypt', 'decrypt' ou 'convert_to_pdf'.");
         }
     }
 
@@ -121,5 +129,20 @@ class Stub
             zipStream.CopyTo(resultStream);
             return resultStream.ToArray();
         }
+    }
+
+    private static void ConvertToPdf(string filePath)
+    {
+        string pdfPath = filePath.Replace(".txt", ".pdf");
+        using (var writer = new iText.Kernel.Pdf.PdfWriter(pdfPath))
+        {
+            using (var pdf = new iText.Kernel.Pdf.PdfDocument(writer))
+            {
+                var document = new iText.Layout.Document(pdf);
+                string content = File.ReadAllText(filePath);
+                document.Add(new iText.Layout.Element.Paragraph(content));
+            }
+        }
+        Console.WriteLine("Arquivo convertido para PDF com sucesso: " + pdfPath);
     }
 }
