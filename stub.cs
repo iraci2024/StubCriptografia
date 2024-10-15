@@ -7,7 +7,7 @@ using System.IO.Compression;
 
 class Stub
 {
-    private static readonly byte[] key = Encoding.UTF8.GetBytes("12345678901234567890123456789012"); // Chave de criptografia de 32 bytes
+    private static byte[] key;
 
     private static byte[] GenerateRandomKey(int size)
     {
@@ -43,17 +43,23 @@ class Stub
 
     private static void EncryptFile(string filePath)
     {
+        key = GenerateRandomKey(32);
         byte[] fileBytes = File.ReadAllBytes(filePath);
-        byte[] encryptedBytes = Encrypt(fileBytes, key);
+        byte[] compressedBytes = Compress(fileBytes);
+        byte[] encryptedBytes = Encrypt(compressedBytes, key);
         File.WriteAllBytes(filePath + ".enc", encryptedBytes);
+        File.WriteAllBytes(filePath + ".key", key);
         Console.WriteLine("Arquivo criptografado com sucesso: " + filePath + ".enc");
     }
 
     private static void DecryptFile(string filePath)
     {
+        string keyPath = filePath.Replace(".enc", ".key");
+        key = File.ReadAllBytes(keyPath);
         byte[] encryptedBytes = File.ReadAllBytes(filePath);
         byte[] decryptedBytes = Decrypt(encryptedBytes, key);
-        File.WriteAllBytes(filePath.Replace(".enc", ""), decryptedBytes);
+        byte[] decompressedBytes = Decompress(decryptedBytes);
+        File.WriteAllBytes(filePath.Replace(".enc", ""), decompressedBytes);
         Console.WriteLine("Arquivo descriptografado com sucesso: " + filePath.Replace(".enc", ""));
     }
 
@@ -92,6 +98,28 @@ class Stub
                 }
                 return ms.ToArray();
             }
+        }
+    }
+
+    private static byte[] Compress(byte[] data)
+    {
+        using (var compressedStream = new MemoryStream())
+        using (var zipStream = new GZipStream(compressedStream, CompressionMode.Compress))
+        {
+            zipStream.Write(data, 0, data.Length);
+            zipStream.Close();
+            return compressedStream.ToArray();
+        }
+    }
+
+    private static byte[] Decompress(byte[] data)
+    {
+        using (var compressedStream = new MemoryStream(data))
+        using (var zipStream = new GZipStream(compressedStream, CompressionMode.Decompress))
+        using (var resultStream = new MemoryStream())
+        {
+            zipStream.CopyTo(resultStream);
+            return resultStream.ToArray();
         }
     }
 }
