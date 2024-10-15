@@ -29,21 +29,23 @@ dotnet bin/Debug/net7.0/StubProject.dll encrypt <caminho_do_arquivo_exe>
 ```
 
 ### Passo 4: Descriptografar um arquivo
-
 ```bash
 dotnet bin/Debug/net7.0/StubProject.dll decrypt <caminho_do_arquivo_exe.enc>
+```
+
+### Passo 5: Converter um arquivo descriptografado para PDF
+```bash
+dotnet bin/Debug/net7.0/StubProject.dll convert_to_pdf <caminho_do_arquivo_txt>
 ```
 
 ## Exemplo
 
 ### Criptografar
-
 ```bash
 dotnet bin/Debug/net7.0/StubProject.dll encrypt exemplo.exe
 ```
 
 ### Descriptografar
-
 ```bash
 dotnet bin/Debug/net7.0/StubProject.dll decrypt exemplo.exe.enc
 ```
